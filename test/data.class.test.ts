@@ -20,5 +20,8 @@ describe('data class', function () {
     user.copy({name: 'Ben'}).name.should.eq('Ben');
     user.copy({name: 'Ben'}).age.should.eq(0);
     user.copy({name: 'Ben', age: 29}).age.should.eq(29);
+    (user === user.copy()).should.eq(false);
+    user.name.should.eq('Guest');
+    user.age.should.eq(0);
   });
 });

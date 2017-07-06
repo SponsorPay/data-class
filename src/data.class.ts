@@ -1,5 +1,5 @@
 export interface DataClass<T> {
-  copy(newValue: Partial<T>): T
+  copy(newValue?: Partial<T>): T
 }
 
 function copy<T>(newValue: Partial<T>): T {
