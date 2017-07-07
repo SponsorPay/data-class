@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha test/**/*.ts --require ts-node/register",
     "build": "tsc -p tsconfig.production.json",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postpublish": "rm -rf lib"
   },
   "files": [
     "lib"
@@ -23,5 +24,8 @@
     "tslint": "^5.5.0",
     "typescript": "^2.4.1"
   },
-  "url": "https://github.com/kobiburnley/data-class"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kobiburnley/data-class"
+  }
 }
