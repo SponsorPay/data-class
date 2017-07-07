@@ -1,0 +1,15 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "semicolon": false,
+    "interface-name": false,
+    "space-before-function-paren": false,
+    "no-console": false,
+    "forin": false
+  },
+  "rulesDirectory": []
+}

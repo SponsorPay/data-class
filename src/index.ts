@@ -1,2 +1,1 @@
-import {dataClass} from "./data.class";
-export default dataClass
+export * from "./data.class"
