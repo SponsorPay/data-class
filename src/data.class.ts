@@ -2,7 +2,7 @@ export interface DataClass<T> {
   copy(newValue?: Partial<T>): T
 }
 
-type Constructor<T = {}> = new (...args: any[]) => T;
+export type Constructor<T = {}> = new (...args: any[]) => T;
 
 function copy<T>(newValue: Partial<T>): T {
   return new this.constructor({...this, ...newValue as any})
