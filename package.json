@@ -23,5 +23,5 @@
     "tslint": "^5.5.0",
     "typescript": "^2.4.1"
   },
-  "homepage": "https://github.com/kobiburnley/data-class"
+  "url": "https://github.com/kobiburnley/data-class"
 }
