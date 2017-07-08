@@ -7,7 +7,8 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "rootDir": "src",
-    "outDir": "lib"
+    "outDir": "lib",
+    "importHelpers": true
   },
   "include": [
     "src/**/*.ts"
