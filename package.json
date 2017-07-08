@@ -27,5 +27,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/kobiburnley/data-class"
+  },
+  "dependencies": {
+    "tslib": "^1.7.1"
   }
 }
