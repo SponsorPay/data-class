@@ -5,9 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha test/**/*.ts --require ts-node/register",
-    "build": "tsc -p tsconfig.production.json",
-    "prepublish": "npm run build",
-    "postpublish": "rm -rf lib"
+    "compile": "tsc -p tsconfig.production.json"
   },
   "files": [
     "lib"
