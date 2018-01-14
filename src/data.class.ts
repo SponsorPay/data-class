@@ -5,10 +5,10 @@ export interface DataClass<T> {
 export type Constructor<T = {}> = new (...args: any[]) => T;
 
 function copy<T>(newValue: Partial<T> = {}): T {
-  const changes: any = {};
-  Object.getOwnPropertyNames(this).forEach((p: keyof T) => {
-    changes[p] = newValue[p] == null ? this[p] : newValue[p];
-  });
+  const changes: any = {}
+  for (const p of Object.keys(this)) {
+    changes[p] = (newValue as any)[p] == null ? this[p] : (newValue as any)[p]
+  }
   return new this.constructor(changes)
 }
 
