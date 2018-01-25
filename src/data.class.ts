@@ -14,7 +14,6 @@ function copy<T>(newValue: Partial<T> = {}): T {
 }
 
 function mutate<T>(newValue: Partial<T> = {}): T {
-  const changes: any = {}
   for (const p of Object.keys(this)) {
     this[p] = (newValue as any)[p] === void 0 ? this[p] : (newValue as any)[p]
   }
