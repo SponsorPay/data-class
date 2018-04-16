@@ -6,6 +6,10 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "mocha test/**/*.ts --require ts-node/register",
+    "build": "rm -rf build && npm run compile",
+    "ci": "npm run build && npm test && npm version patch && npm publish",
+    "ci:minor": "npm run build && npm test && npm version minor && npm publish",
+    "ci:major": "npm run build && npm test && npm version major && npm publish",
     "compile": "tsc -p tsconfig.production.json"
   },
   "files": [
@@ -21,7 +25,7 @@
     "mocha": "^3.4.2",
     "ts-node": "^3.2.0",
     "tslint": "^5.5.0",
-    "typescript": "^2.4.1"
+    "typescript": "^2.8.1"
   },
   "repository": {
     "type": "git",

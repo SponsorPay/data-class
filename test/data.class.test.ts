@@ -8,7 +8,7 @@ interface UserParams {
   age: number
 }
 
-interface User extends UserParams, DataClass {
+interface User extends UserParams, DataClass<UserParams> {
 
 }
 
@@ -21,17 +21,31 @@ class User {
   constructor(params: UserParams) {
     Object.assign(this, params)
   }
+
+  changeName(name: string) {
+    return this.copy({
+      name
+    })
+  }
+
+  passport() {
+    return `Age: ${this.age}, Name: ${this.name}`
+  }
 }
+
+dataClass(User);
+
 
 interface AwesomeUserParams extends UserParams {
   awesomeness: number;
 }
 
-interface AwesomeUser extends AwesomeUserParams, User {
-
+interface AwesomeUser extends AwesomeUserParams, User, DataClass<AwesomeUserParams> {
+  copy(newValue?: Partial<AwesomeUserParams>): this;
+  mutate(newValue?: Partial<AwesomeUserParams>): this;
 }
 
-class AwesomeUser extends User {
+class AwesomeUser {
   static EMPTY = new AwesomeUser({
     age: 0,
     name: "Awesome Guest",
@@ -39,12 +53,13 @@ class AwesomeUser extends User {
   })
 
   constructor(params: AwesomeUserParams) {
-    super(params)
     Object.assign(this, params)
   }
 }
+(AwesomeUser.prototype as any).changeName = User.prototype.changeName
 
-dataClass(User);
+dataClass(AwesomeUser);
+
 
 describe("data class", function () {
   this.timeout(1000);
@@ -68,6 +83,11 @@ describe("data class", function () {
 
   it("infers copy correctly on sub-class", () => {
     const a = AwesomeUser.EMPTY
+    const derived = a.changeName("agsgs").copy({
+      awesomeness: 8
+    })
+    derived.awesomeness.should.eq(8)
+    derived.name.should.eq("agsgs")
     const upgraded = a.copy({
       awesomeness: a.awesomeness + 1
     })

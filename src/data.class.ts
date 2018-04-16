@@ -1,25 +1,25 @@
-export interface DataClass {
-  copy(newValue?: Partial<this>): this;
+export interface DataClass<T> {
+  copy(newValue?: Partial<T>): this;
 
-  mutate(newValue?: Partial<this>): this;
+  mutate(newValue?: Partial<T>): this;
 }
 
-export type Constructor<T = {}> = new (...args: any[]) => T;
+export type Constructor<T> = new (...args: any[]) => T;
 
-function copy<T>(newValue: Partial<T> = {}): T {
+function copy<T>(this: T, newValue: Partial<T> = {}): T {
   const changes: any = {}
-  for (const p of Object.keys(this)) {
-    const value = (newValue as any)[p]
+  for (const p of Object.keys(this) as (keyof T)[]) {
+    const value = newValue[p]
     changes[p] = value === void 0 ? this[p] : value
   }
-  return new this.constructor(changes)
+  return new (this.constructor as Constructor<T>)(changes)
 }
 
-function mutate<T>(newValue: Partial<T> = {}): T {
-  for (const p of Object.keys(this)) {
-    const value = (newValue as any)[p]
+function mutate<T>(this: T, newValue: Partial<T> = {}): T {
+  for (const p of Object.keys(this) as (keyof T)[]) {
+    const value = newValue[p]
     if (value !== void 0) {
-      this[p] = value
+      this[p] = value as T[keyof T]
     }
   }
   return this

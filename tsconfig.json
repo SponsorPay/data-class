@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "noEmitOnError": true,
     "module": "commonjs",
-    "target": "es2015",
+    "target": "es5",
     "sourceMap": true,
     "noImplicitAny": true,
-    "strictNullChecks": true,
-    "importHelpers": true
-  }
+    "strict": true,
+    "importHelpers": true,
+    "lib": ["es5", "es2015.core", "es2015.collection"]
+  },
+  "include": [
+    "src/**/*.ts", "test/**/*.ts"
+  ]
 }
