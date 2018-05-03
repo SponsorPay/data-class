@@ -3,9 +3,19 @@ import chai = require("chai")
 
 chai.should();
 
+function measureTime(block: (...args: any[]) => any) {
+  const t = Date.now()
+  block()
+  return Date.now() - t
+}
+
 interface UserParams {
   name: string
-  age: number
+  age: number,
+  prop1: string;
+  prop2: string;
+  prop3: string;
+  prop4: string;
 }
 
 interface User extends UserParams, DataClass<UserParams> {
@@ -16,6 +26,10 @@ class User {
   static EMPTY = new User({
     age: 0,
     name: "Guest",
+    prop1: "",
+    prop2: "",
+    prop3: "",
+    prop4: "",
   })
 
   constructor(params: UserParams) {
@@ -38,10 +52,12 @@ dataClass(User);
 
 interface AwesomeUserParams extends UserParams {
   awesomeness: number;
+  user: User;
 }
 
 interface AwesomeUser extends AwesomeUserParams, User, DataClass<AwesomeUserParams> {
   copy(newValue?: Partial<AwesomeUserParams>): this;
+
   mutate(newValue?: Partial<AwesomeUserParams>): this;
 }
 
@@ -49,13 +65,19 @@ class AwesomeUser {
   static EMPTY = new AwesomeUser({
     age: 0,
     name: "Awesome Guest",
-    awesomeness: 10
+    awesomeness: 10,
+    prop1: "",
+    prop2: "",
+    prop3: "",
+    prop4: "",
+    user: User.EMPTY
   })
 
   constructor(params: AwesomeUserParams) {
     Object.assign(this, params)
   }
 }
+
 (AwesomeUser.prototype as any).changeName = User.prototype.changeName
 
 dataClass(AwesomeUser);
@@ -94,5 +116,32 @@ describe("data class", function () {
     a.awesomeness.should.eq(10)
     upgraded.awesomeness.should.eq(11)
     upgraded.should.be.instanceOf(AwesomeUser)
+  })
+
+
+  it("benchmark", () => {
+    console.log(
+      measureTime(() => {
+        for (let i = 0; i < 100000; i++) {
+          AwesomeUser.EMPTY.copy({
+            awesomeness: i,
+            user: AwesomeUser.EMPTY.copy({
+              awesomeness: i,
+              user: AwesomeUser.EMPTY.copy({
+                awesomeness: i,
+                user: AwesomeUser.EMPTY.copy({
+                  awesomeness: i,
+                  user: User.EMPTY.copy({
+                    name: "Ben", age: 56,
+                    prop1: String(new Date()),
+                    prop3: String(i)
+                  })
+                })
+              })
+            })
+          })
+        }
+      })
+    )
   })
 });
