@@ -84,7 +84,7 @@ dataClass(AwesomeUser);
 
 
 describe("data class", function () {
-  this.timeout(1000);
+  this.timeout(2000);
   it("should copy", () => {
     const user = User.EMPTY
     user.copy({name: "Ben"}).name.should.eq("Ben");
