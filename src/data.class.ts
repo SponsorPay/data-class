@@ -6,7 +6,7 @@ export interface DataClass<T> {
 
 export type Constructor<T> = new (...args: any[]) => T;
 
-function copy<T>(this: T, newValue?: Partial<T>): T {
+function copy<T extends {}>(this: T, newValue?: Partial<T>): T {
   const changes: Partial<T> = {}
 
   if (newValue != null) {
