@@ -15,9 +15,6 @@
   ],
   "author": "Kobi Burnley",
   "license": "ISC",
-  "peerDependencies": {
-    "tslib": "*"
-  },
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
@@ -29,6 +26,9 @@
     "tslib": "^2.0.0",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"
+  },
+  "peerDependencies": {
+    "tslib": "*"
   },
   "repository": {
     "type": "git",
